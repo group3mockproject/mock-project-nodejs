@@ -2,14 +2,16 @@
 
 
 const sql = require('mssql');
-const bcryptjs = require('bcryptjs');
 const config = require('../config/sqlserver_config');
 
 
-const renderLogin = async (req, res) => {
+const testAPI = async (req, res) => {
     // TODO: Implement logic to authenticate user
-    
-    res.render('./pages/login');
+    const pool = await sql.connect(config);
+        const result = await pool.request()
+            .query('SELECT * FROM Resident ');
+    return res.json({ result: result});
+    // res.render('./pages/login');
 }
 
 const postLogin = async (req, res) => {
@@ -41,9 +43,5 @@ const postLogin = async (req, res) => {
     }
 };
 
-module.exports = { postLogin };
 
-
-
-
-module.exports = {renderLogin, postLogin}
+module.exports = {testAPI, postLogin}

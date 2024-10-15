@@ -3,10 +3,10 @@
 const router = require('express').Router();
 
 
-const {renderLogin, postLogin} = require('../controllers/login_controller');
+const {testAPI, postLogin} = require('../controllers/login_controller');
 
-router.get('/', renderLogin);
+router.get('/', testAPI);
 
-router.post('/', postLogin);
+router.post('/login', postLogin);
 
 module.exports = router;
