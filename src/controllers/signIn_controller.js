@@ -1,6 +1,5 @@
 'use strict';
 
-
 const sql = require('mssql');
 const config = require('../config/sqlserver_config');
 
@@ -17,7 +16,7 @@ const postSignin = async (req, res) => {
         const emailExists = await pool.request()
             .input('email', sql.VarChar, email)
             .query('SELECT * FROM Resident WHERE email = @email'); 
-        console.log(emailExists);
+        // console.log(emailExists);
         if(emailExists.recordset.length) {
             return res.status(400).json({ message: 'Email already exists!' });
         }else{
