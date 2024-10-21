@@ -6,7 +6,7 @@ const config = require('../config/sqlserver_config');
 
 
 const testAPI = async (req, res) => {
-    // TODO: Implement logic to authenticate user
+    
     const pool = await sql.connect(config);
         const result = await pool.request()
             .query('SELECT * FROM Resident ');
