@@ -9,7 +9,6 @@ const cors = require('cors');
 
 const login = require('./src/routes/login_route');
 const signIn = require('./src/routes/signIn_route');
-const userAuth = require('./src/middlewares/user_auth_middleware');
 const profile = require('./src/routes/profile_route');
 const TimeKeeping = require('./src/routes/timekeeping_route');
 const DayOff = require('./src/routes/DayOff_route');
@@ -48,7 +47,6 @@ app.use('/profile', profile);
 app.use('/TimeKeeping', TimeKeeping);
 app.use('/DayOff', DayOff);
 
-app.use(userAuth)
 
 
 

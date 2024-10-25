@@ -3,6 +3,7 @@
 const Resident = require('../models/residents');
 const sql = require('mssql');
 const config = require('../config/sqlserver_config');
+const jwt = require('jsonwebtoken');
 
 
 const testAPI = async (req, res) => {
@@ -41,16 +42,12 @@ const postLogin = async (req, res) => {
                 if (password !== currentUser.password) {
                     return res.status(400).json({ message: 'Wrong Password !, Please ensure that you entered the correct password and try again' });
                 }
+                const token = jwt.sign({
+                    sub: currentUser.email,
+                    position: currentUser.position
+                }, process.env.SESSION_SECRET, {expiresIn: process.env.SESSION_MAX_AGE})
                 req.session.user = {
-                    userAuthenticated: true,
-                    employee_id: currentUser.employee_id,
-                    position: currentUser.position,
-                    fullname: `${currentUser.firstname} ${currentUser.lastname}`,
-                    date_of_birth: currentUser.date_of_birth,
-                    email: currentUser.email,
-                    phone: currentUser.phone,
-                    SSN: currentUser.SSN,
-                    password: currentUser.password,
+                    token: token,
                 };
         
             }
@@ -59,17 +56,14 @@ const postLogin = async (req, res) => {
             if (password !== currentUser.password) {
                 return res.status(400).json({ message: 'Wrong Password !, Please ensure that you entered the correct password and try again' });
             }
+            const token = jwt.sign({
+                sub: currentUser.email,
+                position: "Resident"
+            }, process.env.SESSION_SECRET, {expiresIn: process.env.SESSION_MAX_AGE})
             req.session.user = {
-                userAuthenticated: true,
-                resident_id: currentUser.resident_id,
-                apartmentId: currentUser.apartment_id,
-                fullname: `${currentUser.firstname} ${currentUser.lastname}`,
-                date_of_birth: currentUser.date_of_birth,
-                email: currentUser.email,
-                phone: currentUser.phone,
-                SSN: currentUser.SSN,
-                password: currentUser.password,
+                token: token,
             };
+    
     
     }
         console.log(currentUser.password)
