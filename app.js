@@ -41,11 +41,11 @@ app.use(session({
 }))
 
 
-app.use('/', login);
-app.use('/signin', signIn);
-app.use('/profile', profile);
-app.use('/TimeKeeping', TimeKeeping);
-app.use('/DayOff', DayOff);
+app.use('/api/v1/', login);
+app.use('/api/v1/signin', signIn);
+app.use('/api/v1/profile', profile);
+app.use('/api/v1/TimeKeeping', TimeKeeping);
+app.use('/api/v1/DayOff', DayOff);
 
 
 
